@@ -3,6 +3,7 @@ const pipesContainer = document.querySelector('#pipes-container');
 const scoreElement = document.getElementById('score');
 const gameOverElement = document.querySelector('.game-over');
 const restartButton = document.querySelector('.restart-button');
+const gameContainer = document.querySelector('.game-container');
 let birdTop = 300;
 let gravity = 0.1; // Yerçekimini daha da azalttık
 let velocity = 0;
@@ -18,13 +19,34 @@ let pipeInterval = 1500; // Borular arası süreyi 2 saniyeye düşürdük
 let score = 0;
 let pipeIntervalId = null;
 
-document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' && !gameOver) {
-        jump();
-    }
-});
-
+// Dokunmatik ve fare tıklaması için event listener'lar
+gameContainer.addEventListener('touchstart', handleJump);
+gameContainer.addEventListener('mousedown', handleJump);
+document.addEventListener('keydown', handleJump);
 restartButton.addEventListener('click', resetGame);
+
+// Dokunmatik olayların varsayılan davranışını engelle
+gameContainer.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+}, { passive: false });
+
+function handleJump(e) {
+    // Space tuşu, dokunma veya tıklama için kontrol
+    if ((e.type === 'keydown' && e.code === 'Space') || 
+        e.type === 'touchstart' || 
+        e.type === 'mousedown') {
+        
+        e.preventDefault(); // Varsayılan davranışı engelle
+        
+        if (!gameOver) {
+            if (!gameStarted) {
+                startGame(e);
+            } else {
+                jump();
+            }
+        }
+    }
+}
 
 function resetGame() {
     // Tüm boruları temizle
@@ -202,17 +224,15 @@ function updateBirdPosition() {
 }
 
 function startGame(e) {
-    if (e.code === 'Space' && !gameOver) {
+    if (!gameOver) {
         gameStarted = true;
         jump();
-        // İlk boruyu oluştur
         createPipe();
-        // Düzenli aralıklarla yeni borular oluştur
         pipeIntervalId = setInterval(() => {
             if (gameStarted && !gameOver) {
                 createPipe();
             }
-        }, pipeInterval); // 2 saniyede bir yeni boru
+        }, pipeInterval);
     }
 }
 
