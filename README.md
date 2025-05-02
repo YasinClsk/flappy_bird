@@ -24,4 +24,4 @@ Bu proje HTML, CSS ve JavaScript kullanılarak oluşturulmuş basit bir Flappy B
 
 ## Canlı Demo
 
-[Oyunu oynamak için tıklayın](https://KULLANICI_ADINIZ.github.io/flappy_bird/) 
+[Oyunu oynamak için tıklayın](https://yasinclsk.github.io/flappy_bird/) 
