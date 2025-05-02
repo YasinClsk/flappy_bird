@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #1a1a2e, #16213e);
+}
+
+.game-container {
+    width: 800px;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: none;
+}
+
+/* Bulutlar için arka plan animasyonu */
+.game-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23fff" fill-opacity="0.2" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') repeat-x;
+    animation: cloudMove 20s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes cloudMove {
+    from { background-position-x: 0; }
+    to { background-position-x: -1440px; }
+}
+
+.bird {
+    width: 40px;
+    height: 30px;
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    background: #ffd93d;
+    border-radius: 50% 50% 25% 25%;
+    transform: translateY(-50%);
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s;
+}
+
+.bird::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.bird::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 10px;
+    background: #ff6b6b;
+    border-radius: 50%;
+    top: 10px;
+    right: -5px;
+    transform: rotate(-15deg);
+}
+
+.pipe {
+    position: absolute;
+    width: 70px;
+    background: linear-gradient(90deg, #2ecc71, #27ae60);
+    border: none;
+    z-index: 1;
+    box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.pipe.top {
+    top: 0;
+    border-radius: 0 0 4px 4px;
+}
+
+.pipe.bottom {
+    bottom: 0;
+    border-radius: 4px 4px 0 0;
+}
+
+.pipe::before {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 30px;
+    background: linear-gradient(90deg, #2ecc71, #27ae60);
+    left: -5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.pipe.top::before {
+    bottom: 0;
+    border-radius: 4px;
+}
+
+.pipe.bottom::before {
+    top: 0;
+    border-radius: 4px;
+}
+
+.score {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 32px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.game-over {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    font-size: 36px;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    display: none;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.restart-button {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 30px;
+    font-size: 20px;
+    background: linear-gradient(45deg, #ff6b6b, #ee5253);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: none;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.restart-button:hover {
+    background: linear-gradient(45deg, #ee5253, #ff6b6b);
+    transform: translate(-50%, -52%);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+} 
